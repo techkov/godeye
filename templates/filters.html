@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>
+            Godeye | Filters
+        </title>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+
+    <body>
+        <nav>
+            <a href="{{ url_for('index') }}">
+                <span class="title">
+                    Godeye
+                </span>    
+            </a>
+
+            <div class="links">
+                <a href="{{ url_for('tcp') }}">TCP</a>
+                <a href="{{ url_for('udp') }}">UDP</a>
+                <a href="{{ url_for('filters') }}">Filters</a>
+            </div>
+
+            <div>
+                <form action="/logout" method="post">
+                    <button type="submit">Log out</button>
+                </form>
+            </div>
+        </nav>
+
+        <header>
+            <div class="panel">
+                <h1>Filters Control Panel</h1>
+                <p>Monitor your Activity via Filters.</p>
+            </div>
+        </header>
+
+        <article class="filters">
+            <div class="fpanel">
+                <h2>IP Filter</h2>
+                <div class="filter" id="ip"></div>    
+            </div>
+
+            <div class="fpanel">
+                <h2>TLS Filter</h2>
+                <div class="filter" id="tls"></div>
+            </div>
+
+            <div class="fpanel">
+                <h2>DNS Filter</h2>
+                <div class="filter" id="dns"></div>
+            </div>
+
+            <div class="fpanel">
+                <h2>HTTP Filter</h2>
+                <div class="filter" id="http"></div>
+            </div>
+        </article>
+    </body>
+
+    <script>
+        async function fetchFilterDetails(url, elementId) {
+            const response = await fetch(url);
+            const data = await response.json();
+            const detailsElement = document.getElementById(elementId);
+            const packetEntry = `
+                <div>
+                    <span style="color: #60fc5d;">
+                        ${data.src}
+                    </span> → 
+
+                    <span style="color: #fc615e;">
+                        ${data.host}
+                    </span>
+                </div>`;
+            detailsElement.innerHTML += packetEntry;
+            detailsElement.scrollTop = detailsElement.scrollHeight;
+        }
+
+        setInterval(() => fetchFilterDetails('/filter_ip', 'ip'), 5000);
+        setInterval(() => fetchFilterDetails('/filter_tls', 'tls'), 5000);
+        setInterval(() => fetchFilterDetails('/filter_dns', 'dns'), 5000);
+        setInterval(() => fetchFilterDetails('/filter_http', 'http'), 5000);
+    </script>
+
+</html>

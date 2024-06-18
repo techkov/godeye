@@ -1,0 +1,124 @@
+/*
+====-Basic Setup-====
+*/
+
+@font-face {
+    font-family: Ubuntu;
+    src: url(../fonts/UbuntuSans.ttf);   
+}
+
+@font-face {
+    font-family: RCanada;
+    src: url(../fonts/RadioCanada.ttf);   
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border-style: none;
+    font-family: Ubuntu;
+    text-decoration: none;
+}
+
+/*
+====-Navigation Panel Setup-====
+*/
+
+nav {
+    display: flex;
+    margin: 25px 25px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #34212d;
+    font-family: RCanada;
+}
+
+.links a {
+    font-size: 18px;
+    color: #656565;
+    padding: 0px 14px;
+    font-family: Ubuntu;
+}
+
+button {
+    font-size: 18px;
+    color: #ffffff;
+    padding: 7px 14px;
+    border-radius: 4px;
+    font-family: Ubuntu;
+    background-color: #34212d;
+}
+
+/*
+====-Panel Setup-====
+*/
+
+header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.panel p {
+    font-size: 18px;
+    color: #656565;
+    padding-top: 10px;
+    text-align: center;
+    font-family: Ubuntu;
+}
+
+.panel h1 {
+    font-size: 36px;
+    padding-top: 24px;
+    text-align: center;
+    font-family: RCanada;
+}
+
+#packet-details {
+    width: 50%;
+    height: 400px;
+    padding: 18px;
+    align-self: center;
+    border-radius: 4px;
+    overflow-y: scroll;
+    font-family: Ubuntu;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    margin: 20px 20px 20px 20px;
+}
+
+.filter {
+    height: 400px;
+    padding: 18px 10px;
+    overflow-y: scroll;
+    font-family: Ubuntu;
+}
+
+.filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.fpanel {
+    flex: 1;
+    margin: 10px;
+    overflow-y: auto;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.fpanel h2 {
+    font-size: 24px;
+    color: #615efc;
+    padding-top: 12px;
+    text-align: center;
+    font-family: RCanada;
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>
+            Godeye | UDP
+        </title>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+
+    <body>
+        <nav>
+            <a href="{{ url_for('index') }}">
+                <span class="title">
+                    Godeye
+                </span>    
+            </a>
+
+            <div class="links">
+                <a href="{{ url_for('tcp') }}">TCP</a>
+                <a href="{{ url_for('udp') }}">UDP</a>
+                <a href="{{ url_for('filters') }}">Filters</a>
+            </div>
+
+            <div>
+                <form action="/logout" method="post">
+                    <button type="submit">Log out</button>
+                </form>
+            </div>
+        </nav>
+
+        <header>
+            <div class="panel">
+                <h1>UDP Control Panel</h1>
+                <p>Monitor your UDP Activity.</p>
+            </div>
+
+            <div id="packet-details"></div>
+        </header>
+
+        <script>
+            async function fetchPacketDetails() {
+                const response = await fetch('/udp_data');
+                const data = await response.json();
+                const packetDetails = document.getElementById('packet-details');
+                const packetEntry = `
+                    <div>
+                        <span style="color: #615efc;">
+                            <b>${data.protocol}</b>
+                        </span> : 
+
+                        <span style="color: #60fc5d;">
+                            ${data.src}
+                        </span>:${data.srcport} → 
+
+                        <span style="color: #fc615e;">
+                            ${data.dst}
+                        </span>:${data.dstport},    
+
+                        <span style="color: #32255b;">
+                            ${data.srchost}
+                        </span> →
+
+                        <span style="color: #32255b;">
+                            ${data.dsthost}
+                        </span>
+                    </div>`;
+                packetDetails.innerHTML += packetEntry;
+                packetDetails.scrollTop = packetDetails.scrollHeight;
+            }
+    
+            setInterval(fetchPacketDetails, 5000);
+        </script>
+    </body>
+
+</html>

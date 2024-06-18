@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>
+            Godeye
+        </title>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+
+    <body>
+        <nav>
+            <a href="{{ url_for('index') }}">
+                <span class="title">
+                    Godeye
+                </span>    
+            </a>
+
+            <div class="links">
+                <a href="{{ url_for('tcp') }}">TCP</a>
+                <a href="{{ url_for('udp') }}">UDP</a>
+                <a href="{{ url_for('filters') }}">Filters</a>
+            </div>
+
+            <div>
+                {% if authenticated %}
+                    <form action="/logout" method="post">
+                        <button type="submit">Log out</button>
+                    </form>
+                {% else %}
+                    <form action="/login">
+                        <button>Log in</button>
+                    </form>
+                {% endif %}
+            </div>
+        </nav>
+
+        <header>
+            <div class="panel">
+                {% if authenticated %}
+                    <h1>Welcome, {{ session.username }}!</h1>
+                    <p>You are now logged in and can access the control panel.</p>
+                {% else %}
+                    <h1>Welcome to Godeye Main Page!</h1>
+                    <p>To access the control panel you have to login first.</p>
+                {% endif %}
+            </div>
+        </header>
+    </body>
+
+</html>
