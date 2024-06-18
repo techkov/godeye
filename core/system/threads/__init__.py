@@ -25,7 +25,7 @@ class Background:
             if data:
                 logger.info(f'{name} Filter: {data}')
 
-            sleep(2)
+            sleep(5)
 
 
     def start(self):
