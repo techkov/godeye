@@ -6,23 +6,20 @@ from flask import (
     session, jsonify
 )
 
-
-from core.shark import (
-    Shark, Filter)
+from core.system.threads import Background
 
 from os import urandom
 from base64 import b64encode
 
 from functools import wraps
 
+#todo TODO: Add SocketIO For Packet Manipulation in Background
 
-_shark = Shark(
+
+_background = Background(
     'enp37s0'
 )
-
-_filter = Filter(
-    'enp37s0'
-)
+_background.start()
 
 _flask = Flask(
     __name__,
@@ -48,18 +45,14 @@ def login_required(f):
 @_flask.route('/tcp_data')
 @login_required
 def tcp_data():
-    data = _shark.live_packets(
-        proto='tcp'
-    )
+    data = _background.tasks['tcp'].live_packets()
 
     return jsonify(data)
 
 @_flask.route('/udp_data')
 @login_required
 def udp_data():
-    data = _shark.live_packets(
-        proto='udp'
-    )
+    data = _background.tasks['udp'].live_packets()
 
     return jsonify(data)
 
@@ -78,36 +71,28 @@ def udp():
 @_flask.route('/filter_ip')
 @login_required
 def filter_ip():
-    data = _filter.live_packets(
-        'ip'
-    )
+    data = _background.tasks['ip'].live_packets()
 
     return jsonify(data)
 
 @_flask.route('/filter_dns')
 @login_required
 def filter_dns():
-    data = _filter.live_packets(
-        'dns'
-    )
+    data = _background.tasks['dns'].live_packets()
 
     return jsonify(data)
 
 @_flask.route('/filter_tls')
 @login_required
 def filter_tls():
-    data = _filter.live_packets(
-        'tls.handshake.type == 1 and tcp'
-    )
+    data = _background.tasks['tls'].live_packets()
 
     return jsonify(data)
 
 @_flask.route('/filter_http')
 @login_required
 def filter_http():
-    data = _filter.live_packets(
-        'http.request.method and tcp'
-    )
+    data = _background.tasks['http'].live_packets()
 
     return jsonify(data)
 

@@ -6,15 +6,15 @@ from socket import (
 
 
 class Shark:
-    def __init__(self, interface) -> None:
+    def __init__(self, interface, proto) -> None:
+        self.proto = proto
         self.interface = interface
 
-
-    def live_packets(self, proto) -> dict:
+    def live_packets(self) -> dict:
         capture = LiveCapture(interface=self.interface)
 
         for raw_packet in capture.sniff_continuously():
-            if hasattr(raw_packet, proto):
+            if hasattr(raw_packet, self.proto):
                 try:
                     return self.packet_details(raw_packet)
 
@@ -45,19 +45,20 @@ class Shark:
 
 
 class Filter:
-    def __init__(self, interface) -> None:
+    def __init__(self, interface, _filter) -> None:
         self.interface = interface
+        self._filter = _filter
 
 
-    def live_packets(self, _filter):
+    def live_packets(self):
         capture = LiveCapture(
             interface=self.interface,
-            display_filter=_filter
+            display_filter=self._filter
         )
 
         for raw_packet in capture.sniff_continuously():
-            if (_filter == 'ip'):
-                    if _filter in raw_packet:
+            if (self._filter == 'ip'):
+                    if self._filter in raw_packet:
                         _ = raw_packet.ip.src
                         if not ip_address(_).is_private:
                             try:
@@ -68,8 +69,8 @@ class Filter:
 
                             return {'src': _, 'host': host}
 
-            elif (_filter == 'dns'):
-                if _filter in raw_packet:
+            elif (self._filter == 'dns'):
+                if self._filter in raw_packet:
                     _ = raw_packet.dns.qry_name
                     if _:
                         try:
@@ -80,7 +81,7 @@ class Filter:
 
                         return {'src': _, 'host': host}
 
-            elif (_filter == 'http.request.method and tcp'):
+            elif (self._filter == 'http.request.method and tcp'):
                 if 'http' in raw_packet:
                     _ = raw_packet.http.request_full_uri
                     if _:
@@ -92,7 +93,7 @@ class Filter:
 
                         return {'src': _, 'host': host}
 
-            elif (_filter == 'tls.handshake.type == 1 and tcp'):
+            elif (self._filter == 'tls.handshake.type == 1 and tcp'):
                 if 'tls' in raw_packet:
                     _ = raw_packet.tls.handshake_extensions_server_name
                     if _:
