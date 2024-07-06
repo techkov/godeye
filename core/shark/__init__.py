@@ -1,5 +1,5 @@
-from time import sleep
 from pyshark import LiveCapture
+
 from ipaddress import ip_address
 from socket import (
     gethostbyname, gethostbyaddr)
@@ -21,7 +21,6 @@ class Shark:
                 except Exception as _:
                     pass
 
-                sleep(5)
 
 
     def packet_details(self, packet) -> dict:

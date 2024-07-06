@@ -18,6 +18,7 @@ class Background:
 
         self.running = True
 
+
     async def run_task(self, name, task):
         while self.running:
             try:
@@ -29,14 +30,13 @@ class Background:
             except Exception as _ex:
                 logger.error(f'Error in `{name}` task: {_ex}')
 
-            await asyncio.sleep(5)
-
 
     async def main_loop(self):
         tasks = [
             self.run_task(name, task) \
                 for name, task in self.tasks.clear.items()
         ]
+
         await asyncio.gather(
             *tasks
         )
@@ -46,6 +46,7 @@ class Background:
         asyncio.set_event_loop(
             loop
         )
+
         loop.run_until_complete(
             self.main_loop()
         )
@@ -59,12 +60,12 @@ class Background:
             args=(self.event_loop)
         )
 
+
     def stop(self):
         self.running = False
 
         for task in asyncio.all_tasks(self.event_loop):
             task.cancel()
 
-        self.event_loop.stop()
-        self.event_loop.close()
+        self.event_loop.call_soon_threadsafe(self.event_loop.stop)
         self.thread.join()

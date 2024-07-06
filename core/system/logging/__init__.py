@@ -3,8 +3,8 @@ from logging.handlers import RotatingFileHandler
 
 handler = RotatingFileHandler(
     './logs/app.log',
-    maxBytes=1000000, 
-    backupCount=3
+    maxBytes=1000000,
+    backupCount=5
 )
 
 logging.basicConfig(

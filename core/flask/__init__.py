@@ -103,8 +103,6 @@ def filters():
 @_flask.route('/login', methods=['GET', 'POST'])
 def login():
     if (request.method == 'POST'):
-
-            #print(request.form)
             username, password = request.form.get('username', None), \
                 request.form.get('password', None)
 
