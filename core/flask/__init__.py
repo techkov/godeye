@@ -13,9 +13,6 @@ from base64 import b64encode
 
 from functools import wraps
 
-#todo TODO: Add SocketIO For Packet Manipulation in Background
-
-
 _background = Background(
     'enp37s0'
 )
@@ -139,7 +136,3 @@ def index():
 
     return render_template(
         'index.html', authenticated=authenticated)
-
-
-if __name__ == '__main__':
-    _flask.run(debug=True)
