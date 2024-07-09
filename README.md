@@ -13,9 +13,10 @@ Here is the detailed process of installation:
 3. Activate the Virtual Environment - `source ./.venv/bin/activate`
 4. Install required packages using `requirements.txt` file - `python -m pip install -r requirements.txt`
 
-## Usage 📑
+## Usage & Setup 📑
 
-To start the program, simply enter: `sudo python -m godeye`;
+1. Create `logs` directory (assuming you are in `~`) - `mkdir logs && touch ./logs/app.log`
+2. Startup the engines - `waitress-serve --host 0.0.0.0 wsgi:wsgi`
 
 *Requires `sudo`, because of `tshark` module, which captures packets;*
 
@@ -23,6 +24,6 @@ To start the program, simply enter: `sudo python -m godeye`;
 
 ### Disclaimer 🚫
 
-#### For now, we do not recommend using this tool, because `Flask` Server is in debug mode currently, the usage of non-secured connection may lead to unpredictable and bad consequences. We are working on resolving this issue
+#### This code isn't the best program to run with sudo, as `waitress` does not provide enough protection for the code executed with root privileges. But using `nginx` or `Apache httpd` can save the situation. Soon we are going to add `nginx` setup version
 
 ## Thanks, Bye 👋🏻

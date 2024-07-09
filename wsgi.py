@@ -1,13 +1,11 @@
 from core.system.logging import logger
 from core.flask import _flask, _background
 
+wsgi = _flask
 
 def main():
     try:
-        _flask.run(
-            host='0.0.0.0', port=8080,
-            debug=True
-        )
+        wsgi.run()
 
     except KeyboardInterrupt:
         _background.stop()

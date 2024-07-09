@@ -5,6 +5,7 @@ charset-normalizer==3.3.2
 click==8.1.7
 colorama==0.4.6
 Flask==3.0.3
+gunicorn==22.0.0
 idna==3.7
 itsdangerous==2.2.0
 Jinja2==3.1.4
@@ -13,8 +14,10 @@ MarkupSafe==2.1.5
 packaging==24.1
 pyshark==0.6
 python-pam==2.0.2
+pyuwsgi==2.0.23.post0
 requests==2.32.3
 six==1.16.0
 termcolor==2.4.0
 urllib3==2.2.1
+waitress==3.0.0
 Werkzeug==3.0.3
