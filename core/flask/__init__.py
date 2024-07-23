@@ -6,6 +6,8 @@ from flask import (
     session, jsonify
 )
 
+from flask_wtf import CSRFProtect
+
 from core.system.threads import Background
 
 from os import urandom
@@ -26,6 +28,10 @@ _flask = Flask(
 _flask.secret_key = b64encode(
     urandom(256)
 ).decode('utf-8')
+
+csrf = CSRFProtect(
+    _flask
+)
 
 authenticator = pam()
 
