@@ -16,7 +16,7 @@ from base64 import b64encode
 from functools import wraps
 
 _background = Background(
-    'enp37s0'
+    'your_main_network_interface'
 )
 _background.start()
 
