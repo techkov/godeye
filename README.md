@@ -2,7 +2,7 @@
 
 ## Description 📄
 
-**Godeye** - web-based tool, built for network activity monitoring on specific device *(Raw Beta Version Available for Now Only)*;
+**Godeye** - web-based tool, built for network activity monitoring on specific device;
 
 ## Installation ⚙️
 
@@ -56,7 +56,7 @@ Create Process Config - `sudo nano /etc/systemd/system/godeye.service`
 
 ``` ini
 [Unit]
-Description=Waitress Server fore Flask App (Godeye)
+Description=Waitress Server for Flask App (Godeye)
 After=network.target
 
 [Service]
